@@ -1,6 +1,8 @@
 ---
 systemd:
   units:
+    - name: "coreos-metadata-sshkeys@.service"
+      enabled: true
     - name: etcd-member.service
       enable: true
       dropins:

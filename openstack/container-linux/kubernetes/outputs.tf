@@ -1,23 +1,23 @@
 output "controllers_dns" {
-  value = "${digitalocean_record.controllers.0.fqdn}"
+  value = "${openstack_compute_instance_v2.controllers.*.network.0.fixed_ip_v4}"
 }
 
 output "workers_dns" {
-  value = "${digitalocean_record.workers.0.fqdn}"
+  value = "${openstack_compute_instance_v2.workers.*.network.0.fixed_ip_v4}"
 }
 
 output "controllers_ipv4" {
-  value = ["${digitalocean_droplet.controllers.*.ipv4_address}"]
+  value = ["${openstack_compute_instance_v2.controllers.*.network.0.fixed_ip_v4}"]
 }
 
 output "controllers_ipv6" {
-  value = ["${digitalocean_droplet.controllers.*.ipv6_address}"]
+  value = ["${openstack_compute_instance_v2.controllers.*.network.0.fixed_ip_v6}"]
 }
 
 output "workers_ipv4" {
-  value = ["${digitalocean_droplet.workers.*.ipv4_address}"]
+  value = ["${openstack_compute_instance_v2.workers.*.network.0.fixed_ip_v4}"]
 }
 
 output "workers_ipv6" {
-  value = ["${digitalocean_droplet.workers.*.ipv6_address}"]
+  value = ["${openstack_compute_instance_v2.workers.*.network.0.fixed_ip_v6}"]
 }

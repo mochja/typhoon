@@ -30,6 +30,15 @@
 #   value = "${element(digitalocean_droplet.controllers.*.ipv4_address_private, count.index)}"
 # }
 
+data "openstack_images_image_v2" "controller_image" {
+  name = "${var.image}"
+  most_recent = true
+}
+
+data "openstack_compute_flavor_v2" "controller_flavor" {
+  name = "${var.controller_type}"
+}
+
 # Controller droplet instances
 resource "openstack_compute_instance_v2" "controllers" {
   count = "${var.controller_count}"
@@ -37,16 +46,16 @@ resource "openstack_compute_instance_v2" "controllers" {
   name   = "${var.cluster_name}-controller-${count.index}"
   region = "${var.region}"
 
-  image = "${var.image}"
-  size  = "${var.controller_type}"
+  image_id = "${data.openstack_images_image_v2.controller_image.id}"
+  flavor_id  = "${data.openstack_compute_flavor_v2.controller_flavor.id}"
 
   user_data = "${element(data.ct_config.controller_ign.*.rendered, count.index)}"
 
-  key_pair        = "my_key_pair_name"
+  key_pair        = "mbpro-nemo"
   security_groups = ["default"]
 
   network {
-    name = "Ext-Network"
+    name = "Ext-Net"
   }
 }
 

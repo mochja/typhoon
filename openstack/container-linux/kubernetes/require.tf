@@ -5,6 +5,7 @@ terraform {
 }
 
 provider "openstack" {
+  version = "~> 1.3"
 }
 
 provider "local" {

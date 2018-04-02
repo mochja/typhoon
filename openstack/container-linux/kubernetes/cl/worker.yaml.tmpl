@@ -1,6 +1,8 @@
 ---
 systemd:
   units:
+    - name: "coreos-metadata-sshkeys@.service"
+      enabled: true
     - name: docker.service
       enable: true
     - name: locksmithd.service

@@ -4,7 +4,6 @@ variable "cluster_name" {
 }
 
 # Digital Ocean
-
 variable "region" {
   type        = "string"
   description = "Digital Ocean region (e.g. nyc1, sfo2, fra1, tor1)"
@@ -31,19 +30,19 @@ variable "worker_count" {
 
 variable "controller_type" {
   type        = "string"
-  default     = "s-2vcpu-2gb"
+  default     = "s1-2"
   description = "Droplet type for controllers (e.g. s-2vcpu-2gb, s-2vcpu-4gb, s-4vcpu-8gb)."
 }
 
 variable "worker_type" {
   type        = "string"
-  default     = "s-1vcpu-1gb"
+  default     = "s1-2"
   description = "Droplet type for workers (e.g. s-1vcpu-1gb, s-1vcpu-2gb, s-2vcpu-2gb)"
 }
 
 variable "image" {
   type        = "string"
-  default     = "coreos-stable"
+  default     = "CoreOS Stable"
   description = "Container Linux image for instances (e.g. coreos-stable)"
 }
 
@@ -61,10 +60,10 @@ variable "worker_clc_snippets" {
 
 # configuration
 
-variable "ssh_fingerprints" {
-  type        = "list"
-  description = "SSH public key fingerprints. (e.g. see `ssh-add -l -E md5`)"
-}
+# variable "ssh_fingerprints" {
+#   type        = "list"
+#   description = "SSH public key fingerprints. (e.g. see `ssh-add -l -E md5`)"
+# }
 
 variable "asset_dir" {
   description = "Path to a directory where generated assets should be placed (contains secrets)"

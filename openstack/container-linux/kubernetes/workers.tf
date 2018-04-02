@@ -10,6 +10,10 @@
 #   records = "${openstack_compute_flavor_v2.workers.*.ipv4_address}"
 # }
 
+data "openstack_compute_flavor_v2" "worker_flavor" {
+  name = "${var.worker_type}"
+}
+
 # Worker droplet instances
 resource "openstack_compute_instance_v2" "workers" {
   count = "${var.worker_count}"
@@ -17,16 +21,16 @@ resource "openstack_compute_instance_v2" "workers" {
   name   = "${var.cluster_name}-worker-${count.index}"
   region = "${var.region}"
 
-  image = "${var.image}"
-  flavor_id  = "${var.worker_type}"
+  image_id = "${data.openstack_images_image_v2.controller_image.id}"
+  flavor_id  = "${data.openstack_compute_flavor_v2.worker_flavor.id}"
 
   user_data = "${data.ct_config.worker_ign.rendered}"
 
-  key_pair        = "my_key_pair_name"
+  key_pair        = "mbpro-nemo"
   security_groups = ["default"]
 
   network {
-    name = "Ext-Network"
+    name = "Ext-Net"
   }
 }
 

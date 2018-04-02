@@ -5,7 +5,7 @@ module "bootkube" {
   cluster_name          = "${var.cluster_name}"
   api_servers           = ["${format("%s.%s", var.cluster_name, var.dns_zone)}"]
   # etcd_servers          = "${digitalocean_record.etcds.*.fqdn}"
-  etcd_servers          = "${digitalocean_droplet.controllers.*.ipv4_address_private}"
+  etcd_servers          = "${openstack_compute_instance_v2.controllers.*.network.0.fixed_ip_v4}"
   asset_dir             = "${var.asset_dir}"
   networking            = "flannel"
   network_mtu           = 1440
